@@ -1,16 +1,42 @@
 /* global require */
 import React, { Component } from "react";
-import { Dimensions, Text, View, TouchableOpacity } from "react-native";
+import { Dimensions, Text, View, AsyncStorage } from "react-native";
 import { dateToFormatString } from "../dateFormat";
+import { datesAreOnSameDay } from "../DateChecker";
+import { storeData, getData } from "../StoreFunctions";
 import PfcMeter from "../components/PfcMeter";
 import PlusButton from "../components/PlusButton";
+import moment from "moment";
 class HomeScreen extends Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      isLoading: true
+    };
   }
+  componentDidMount = async () => {
+    moment.locale("ja");
+    const todayUserData = await getData("todayUserData");
+    if (
+      todayUserData &&
+      datesAreOnSameDay(moment(todayUserData.date), moment())
+    ) {
+      await this.setState({ todayUserData: todayUserData });
+    } else {
+      const userDataFormat = {
+        pfc: { p: 0, f: 0, c: 0 },
+        date: moment()
+      };
+      storeData("todayUserData", userDataFormat);
+      this.setState({ todayUserData: userDataFormat });
+    }
+    await this.setState({ isLoading: false });
+  };
 
   render() {
+    if (this.state.isLoading) {
+      return <View></View>;
+    }
     return (
       <View style={{ flex: 1, backgroundColor: "#f5f5f5" }}>
         <Text
@@ -22,7 +48,7 @@ class HomeScreen extends Component {
             color: "#666666"
           }}
         >
-          {dateToFormatString(new Date(), "%MM%/%DD% (%w%)")}
+          {moment(this.state.todayUserData.date).format("MM/DD")}
         </Text>
         <View style={{ alignItems: "center", paddingTop: "15%" }}>
           <PfcMeter title={"タンパク質"} amount={10} color={"#EBA3C6"} />
