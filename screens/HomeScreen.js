@@ -3,9 +3,7 @@ import React, { Component } from "react";
 import { Dimensions, Text, View, TouchableOpacity } from "react-native";
 import { dateToFormatString } from "../dateFormat";
 import PfcMeter from "../components/PfcMeter";
-import Icon from "react-native-vector-icons/Feather";
 import PlusButton from "../components/PlusButton";
-const DATE_TIME_TODAY = new Date();
 class HomeScreen extends Component {
   constructor(props) {
     super(props);
@@ -17,7 +15,7 @@ class HomeScreen extends Component {
       <View style={{ flex: 1, backgroundColor: "#f5f5f5" }}>
         <Text
           style={{
-            paddingTop: 40,
+            paddingTop: "20%",
             alignSelf: "center",
             fontSize: 28,
             fontWeight: "bold",
@@ -26,7 +24,7 @@ class HomeScreen extends Component {
         >
           {dateToFormatString(new Date(), "%MM%/%DD% (%w%)")}
         </Text>
-        <View style={{ alignItems: "center", paddingTop: 80 }}>
+        <View style={{ alignItems: "center", paddingTop: "15%" }}>
           <PfcMeter title={"タンパク質"} amount={10} color={"#EBA3C6"} />
         </View>
         <View

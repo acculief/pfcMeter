@@ -14,18 +14,18 @@ class PfcMeter extends Component {
         style={[
           this.props.style,
           {
-            width: Dimensions.get("window").width / 3,
-            height: Dimensions.get("window").width / 3,
+            width: Dimensions.get("window").width / 3.2,
+            height: Dimensions.get("window").width / 3.2,
             alignItems: "center"
           }
         ]}
       >
         <View
           style={{
-            backgroundColor: "#f5f5f5",
-            width: Dimensions.get("window").width / 3,
-            height: Dimensions.get("window").width / 3,
-            borderRadius: Dimensions.get("window").width / 3,
+            backgroundColor: "white",
+            width: Dimensions.get("window").width / 3.2,
+            height: Dimensions.get("window").width / 3.2,
+            borderRadius: Dimensions.get("window").width / 3.2,
             borderColor: this.props.color,
             borderWidth: 10,
             justifyContent: "center",

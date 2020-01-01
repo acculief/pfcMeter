@@ -17,11 +17,15 @@ export default function PlusButton(props) {
           alignItems: "center",
           shadowRadius: 3,
           shadowOpacity: 0.2,
+          shadowOffset: {
+            height: 2,
+            width: 0
+          },
           shadowColor: "gray"
         }
       ]}
     >
-      <Icon size={40} name={"plus"} color={"#888888"} />
+      <Icon size={40} name={props.minus ? "minus" : "plus"} color={"#888888"} />
     </TouchableOpacity>
   );
 }
