@@ -1,7 +1,6 @@
 /* global require */
 import React, { Component } from "react";
 import { Dimensions, Text, View, AsyncStorage } from "react-native";
-import { dateToFormatString } from "../dateFormat";
 import { datesAreOnSameDay } from "../DateChecker";
 import { storeData, getData } from "../StoreFunctions";
 import PfcMeter from "../components/PfcMeter";
