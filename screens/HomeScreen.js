@@ -1,8 +1,10 @@
 /* global require */
 import React, { Component } from "react";
-import { Dimensions, Text, View } from "react-native";
+import { Dimensions, Text, View, TouchableOpacity } from "react-native";
 import { dateToFormatString } from "../dateFormat";
 import PfcMeter from "../components/PfcMeter";
+import Icon from "react-native-vector-icons/Feather";
+import PlusButton from "../components/PlusButton";
 const DATE_TIME_TODAY = new Date();
 class HomeScreen extends Component {
   constructor(props) {
@@ -59,6 +61,11 @@ class HomeScreen extends Component {
         >
           520kcal
         </Text>
+
+        <PlusButton
+          style={{ position: "absolute", bottom: "5%", right: 15 }}
+          onPress={() => this.props.navigation.navigate("AddPfc")}
+        ></PlusButton>
       </View>
     );
   }

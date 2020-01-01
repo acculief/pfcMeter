@@ -2,11 +2,11 @@ import React from "react";
 import { Platform } from "react-native";
 import { createStackNavigator } from "react-navigation-stack";
 import { createBottomTabNavigator } from "react-navigation-tabs";
-
 import TabBarIcon from "../components/TabBarIcon";
 import HomeScreen from "../screens/HomeScreen";
 import LinksScreen from "../screens/LinksScreen";
 import SettingsScreen from "../screens/SettingsScreen";
+import AddPfc from "../screens/AddPfc";
 
 const config = Platform.select({
   web: { headerMode: "screen" },
@@ -24,9 +24,16 @@ const HomeStack = createStackNavigator(
           height: 40
         }
       }
+    },
+    AddPfc: {
+      screen: AddPfc
     }
   },
-  config
+  {
+    mode: "modal",
+    headerMode: "none",
+    config
+  }
 );
 
 HomeStack.navigationOptions = {

@@ -1,16 +1,7 @@
 /* global require */
 import React, { Component } from "react";
-import {
-  Dimensions,
-  Text,
-  View,
-  StyleSheet,
-  TouchableOpacity,
-  Image,
-  FlatList
-} from "react-native";
+import { Dimensions, Text, View } from "react-native";
 
-const DATE_TIME_TODAY = new Date();
 class PfcMeter extends Component {
   constructor(props) {
     super(props);
