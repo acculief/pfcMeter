@@ -14,8 +14,10 @@ class HomeScreen extends Component {
       isLoading: true
     };
   }
+  componentDidMount() {
+    // AsyncStorage.clear();
+  }
   initHome = async () => {
-    moment.locale("ja");
     const todayUserData = await getData("todayUserData");
     if (
       todayUserData &&
@@ -25,7 +27,7 @@ class HomeScreen extends Component {
     } else {
       const userDataFormat = {
         pfc: { p: 0, f: 0, c: 0 },
-        date: moment()
+        date: moment().format()
       };
       storeData("todayUserData", userDataFormat);
       LayoutAnimation.spring();
@@ -34,6 +36,13 @@ class HomeScreen extends Component {
     await this.setState({ isLoading: false });
   };
 
+  calculatedCalory() {
+    const result =
+      this.state.todayUserData.pfc.p * 4 +
+      this.state.todayUserData.pfc.f * 9 +
+      this.state.todayUserData.pfc.c * 4;
+    return result;
+  }
   render() {
     if (this.state.isLoading) {
       return (
@@ -93,13 +102,13 @@ class HomeScreen extends Component {
             color: "#666666"
           }}
         >
-          520kcal
+          {this.calculatedCalory()}kcal
         </Text>
 
         <PlusButton
           style={{ position: "absolute", bottom: "5%", right: 15 }}
           onPress={() => this.props.navigation.navigate("AddPfc")}
-        ></PlusButton>
+        />
       </View>
     );
   }

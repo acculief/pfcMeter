@@ -18,16 +18,16 @@ export default function AddPfc(props) {
   const [amount, setAmount] = useState(1);
 
   const setPfcCondition = (pfcString, status, amount) => {
-    if (pfc[pfcString] === 0) {
-      setPfc(prevState => ({
-        ...prevState,
-        [pfcString]:
-          status === "plus"
-            ? prevState[pfcString] + amount
-            : prevState[pfcString]
-      }));
-      return;
-    }
+    // if (pfc[pfcString] === 0) {
+    //   setPfc(prevState => ({
+    //     ...prevState,
+    //     [pfcString]:
+    //       status === "plus"
+    //         ? prevState[pfcString] + amount
+    //         : prevState[pfcString]
+    //   }));
+    //   return;
+    // }
     setPfc(prevState => ({
       ...prevState,
       [pfcString]:
@@ -57,6 +57,7 @@ export default function AddPfc(props) {
     await formatedExistingUserDataAsset.push(userDataFormat);
     await storeData("userDataAsset", formatedExistingUserDataAsset);
     await props.navigation.popToTop();
+    await console.log(formatedExistingUserDataAsset);
   };
 
   return (

@@ -114,18 +114,10 @@ SettingsStack.navigationOptions = {
 
 SettingsStack.path = "";
 
-const tabNavigator = createBottomTabNavigator(
-  {
-    HomeStack,
-    LinksStack,
-    SettingsStack
-  },
-  {
-    tabBarStyle: {
-      backgroundColor: "red"
-    }
-  }
-);
+const tabNavigator = createBottomTabNavigator({
+  HomeStack,
+  LinksStack
+});
 
 tabNavigator.path = "";
 
