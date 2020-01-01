@@ -1,6 +1,6 @@
 import React, { Component } from "react";
-import { View, Text, Dimensions } from "react-native";
-import { BarChart, StackedBarChart } from "react-native-chart-kit";
+import { ScrollView, View, Text, Dimensions } from "react-native";
+import { LineChart, BarChart, StackedBarChart } from "react-native-chart-kit";
 import { storeData, getData } from "../StoreFunctions";
 import moment from "moment-timezone/builds/moment-timezone-with-data";
 import { NavigationEvents } from "react-navigation";
@@ -11,7 +11,7 @@ export default class AnalyticsScreen extends Component {
     super(props);
     this.state = {
       isLoading: true,
-      data: {
+      pfcData: {
         labels: [],
         legend: [],
         data: [],
@@ -33,7 +33,7 @@ export default class AnalyticsScreen extends Component {
       }
     });
 
-    const data = await {
+    const pfcData = await {
       labels: dates,
       legend: ["タンパク質", "脂質", "糖質"],
       data: pfc,
@@ -48,15 +48,16 @@ export default class AnalyticsScreen extends Component {
         }
       ]
     };
+
     await this.setState({
-      data: data,
+      pfcData: pfcData,
       caloryData: caloryData,
       isLoading: false
     });
   };
 
   chart() {
-    if (this.state.data.data.length < 0) {
+    if (this.state.pfcData.data.length < 0) {
       return (
         <View>
           <Text
@@ -73,7 +74,7 @@ export default class AnalyticsScreen extends Component {
       );
     }
     return (
-      <View>
+      <View style={{ paddingLeft: 15 }}>
         <Text
           style={{
             fontSize: 18,
@@ -84,25 +85,26 @@ export default class AnalyticsScreen extends Component {
         >
           PFC(g)
         </Text>
-        <StackedBarChart
-          data={this.state.data}
-          width={Dimensions.get("window").width - 16}
-          height={Dimensions.get("window").height / 4}
-          chartConfig={{
-            backgroundColor: "#1cc910",
-            backgroundGradientFrom: "#BCBEE4",
-            backgroundGradientTo: "#BCBEE4",
-            decimalPlaces: 2,
-            color: (opacity = 1) => `rgba(0, 0, 0, ${opacity})`,
-            style: {
-              borderRadius: 16
+        <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+          <StackedBarChart
+            data={this.state.pfcData}
+            width={
+              Dimensions.get("window").width +
+              40 * this.state.pfcData.data.length
             }
-          }}
-          style={{
-            borderRadius: 16,
-            marginBottom: "10%"
-          }}
-        />
+            height={Dimensions.get("window").height / 4}
+            chartConfig={{
+              backgroundColor: "#1cc910",
+              backgroundGradientFrom: "#BCBEE4",
+              backgroundGradientTo: "#BCBEE4",
+              decimalPlaces: 2,
+              color: (opacity = 1) => `rgba(0, 0, 0, ${opacity})`
+            }}
+            style={{
+              borderRadius: 16
+            }}
+          />
+        </ScrollView>
         <Text
           style={{
             fontSize: 18,
@@ -113,26 +115,31 @@ export default class AnalyticsScreen extends Component {
         >
           カロリー(kcal)
         </Text>
-        <BarChart
-          data={this.state.caloryData}
-          width={Dimensions.get("window").width - 16}
-          height={Dimensions.get("window").height / 4}
-          fromZero
-          chartConfig={{
-            backgroundColor: "#1cc910",
-            backgroundGradientFrom: "#BCBEE4",
-            backgroundGradientTo: "#BCBEE4",
-            decimalPlaces: 2,
-            labelColor: (opacity = 1) => `rgba(0, 0, 20, ${opacity})`,
-            color: (opacity = 1) => `rgba(0, 150, 0, ${opacity})`,
-            style: {
-              borderRadius: 16
+        <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+          <BarChart
+            data={this.state.caloryData}
+            width={
+              Dimensions.get("window").width +
+              30 * this.state.caloryData.datasets[0].data.length
             }
-          }}
-          style={{
-            borderRadius: 16
-          }}
-        />
+            height={Dimensions.get("window").height / 4}
+            fromZero
+            chartConfig={{
+              backgroundColor: "#1cc910",
+              backgroundGradientFrom: "#BCBEE4",
+              backgroundGradientTo: "#BCBEE4",
+              decimalPlaces: 2,
+              labelColor: (opacity = 1) => `rgba(0, 0, 20, ${opacity})`,
+              color: (opacity = 1) => `rgba(0, 150, 0, ${opacity})`,
+              style: {
+                borderRadius: 16
+              }
+            }}
+            style={{
+              borderRadius: 16
+            }}
+          />
+        </ScrollView>
       </View>
     );
   }
