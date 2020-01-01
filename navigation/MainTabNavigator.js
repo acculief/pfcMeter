@@ -4,7 +4,7 @@ import { createStackNavigator } from "react-navigation-stack";
 import { createBottomTabNavigator } from "react-navigation-tabs";
 import TabBarIcon from "../components/TabBarIcon";
 import HomeScreen from "../screens/HomeScreen";
-import LinksScreen from "../screens/LinksScreen";
+import AnalyticsScreen from "../screens/AnalyticsScreen";
 import SettingsScreen from "../screens/SettingsScreen";
 import AddPfc from "../screens/AddPfc";
 
@@ -60,9 +60,9 @@ HomeStack.navigationOptions = {
 
 HomeStack.path = "";
 
-const LinksStack = createStackNavigator(
+const AnalyticsStack = createStackNavigator(
   {
-    Links: LinksScreen
+    Analytics: AnalyticsScreen
   },
   {
     headerMode: "none",
@@ -70,7 +70,7 @@ const LinksStack = createStackNavigator(
   }
 );
 
-LinksStack.navigationOptions = {
+AnalyticsStack.navigationOptions = {
   tabBarLabel: "分析",
   tabBarOptions: {
     activeTintColor: "#BCBEE4",
@@ -92,7 +92,7 @@ LinksStack.navigationOptions = {
   )
 };
 
-LinksStack.path = "";
+AnalyticsStack.path = "";
 
 const SettingsStack = createStackNavigator(
   {
@@ -116,7 +116,7 @@ SettingsStack.path = "";
 
 const tabNavigator = createBottomTabNavigator({
   HomeStack,
-  LinksStack
+  AnalyticsStack
 });
 
 tabNavigator.path = "";
