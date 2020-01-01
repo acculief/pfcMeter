@@ -1,4 +1,4 @@
-import { Dimensions, Text, View, AsyncStorage } from "react-native";
+import { AsyncStorage } from "react-native";
 
 const storeData = async (key, value) => {
   try {
@@ -6,8 +6,6 @@ const storeData = async (key, value) => {
   } catch (error) {
     console.log(error);
   }
-
-  alert(value + ": stored");
 };
 
 const getData = async key => {

@@ -1,11 +1,12 @@
-/* global require */
 import React, { Component } from "react";
-import { Dimensions, Text, View, AsyncStorage } from "react-native";
+import { LayoutAnimation, Text, View, AsyncStorage } from "react-native";
 import { datesAreOnSameDay } from "../DateChecker";
 import { storeData, getData } from "../StoreFunctions";
 import PfcMeter from "../components/PfcMeter";
 import PlusButton from "../components/PlusButton";
-import moment from "moment";
+import moment from "moment-timezone/builds/moment-timezone-with-data";
+import { NavigationEvents } from "react-navigation";
+
 class HomeScreen extends Component {
   constructor(props) {
     super(props);
@@ -13,7 +14,7 @@ class HomeScreen extends Component {
       isLoading: true
     };
   }
-  componentDidMount = async () => {
+  initHome = async () => {
     moment.locale("ja");
     const todayUserData = await getData("todayUserData");
     if (
@@ -27,6 +28,7 @@ class HomeScreen extends Component {
         date: moment()
       };
       storeData("todayUserData", userDataFormat);
+      LayoutAnimation.spring();
       this.setState({ todayUserData: userDataFormat });
     }
     await this.setState({ isLoading: false });
@@ -34,10 +36,15 @@ class HomeScreen extends Component {
 
   render() {
     if (this.state.isLoading) {
-      return <View></View>;
+      return (
+        <View>
+          <NavigationEvents onDidFocus={() => this.initHome()} />
+        </View>
+      );
     }
     return (
       <View style={{ flex: 1, backgroundColor: "#f5f5f5" }}>
+        <NavigationEvents onDidFocus={() => this.initHome()} />
         <Text
           style={{
             paddingTop: "20%",
@@ -50,7 +57,11 @@ class HomeScreen extends Component {
           {moment(this.state.todayUserData.date).format("MM/DD")}
         </Text>
         <View style={{ alignItems: "center", paddingTop: "15%" }}>
-          <PfcMeter title={"タンパク質"} amount={10} color={"#EBA3C6"} />
+          <PfcMeter
+            title={"タンパク質"}
+            amount={this.state.todayUserData.pfc.p}
+            color={"#EBA3C6"}
+          />
         </View>
         <View
           style={{
@@ -62,13 +73,13 @@ class HomeScreen extends Component {
         >
           <PfcMeter
             title={"脂質"}
-            amount={20}
+            amount={this.state.todayUserData.pfc.f}
             color={"#9CCAEA"}
             style={{ marginRight: 40 }}
           />
           <PfcMeter
             title={"糖質"}
-            amount={30}
+            amount={this.state.todayUserData.pfc.c}
             color={"#DDC98B"}
             style={{ marginLeft: 40 }}
           />

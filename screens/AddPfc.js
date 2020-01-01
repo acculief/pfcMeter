@@ -3,6 +3,8 @@ import PfcMeter from "../components/PfcMeter";
 import PlusButton from "../components/PlusButton";
 import { View, Dimensions, TouchableOpacity, Text } from "react-native";
 import SwitchSelector from "react-native-switch-selector";
+import { storeData, getData } from "../StoreFunctions";
+import moment from "moment-timezone/builds/moment-timezone-with-data";
 
 const options = [
   { label: "0.5g", value: "0.5" },
@@ -32,6 +34,16 @@ export default function AddPfc() {
           ? prevState[pfcString] + amount
           : prevState[pfcString] - amount
     }));
+  };
+
+  const onSetPfc = async () => {
+    const prevUserData = await getData("todayUserData");
+    const { p, f, c } = await prevUserData.pfc;
+    const userDataFormat = await {
+      pfc: { p: p + pfc.p, f: f + pfc.f, c: c + pfc.c },
+      date: prevUserData.date
+    };
+    await storeData("todayUserData", userDataFormat);
   };
 
   return (
@@ -127,6 +139,7 @@ export default function AddPfc() {
           }}
         />
         <TouchableOpacity
+          onPress={onSetPfc}
           style={{
             marginTop: 30,
             alignSelf: "center",
