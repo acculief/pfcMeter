@@ -5,6 +5,7 @@ import { View, Dimensions, TouchableOpacity, Text } from "react-native";
 import SwitchSelector from "react-native-switch-selector";
 import { storeData, getData } from "../StoreFunctions";
 import moment from "moment-timezone/builds/moment-timezone-with-data";
+import { datesAreOnDiffrentDay, datesAreOnSameDay } from "../DateChecker";
 
 const options = [
   { label: "0.5g", value: "0.5" },
@@ -12,7 +13,7 @@ const options = [
   { label: "5g", value: "5" }
 ];
 
-export default function AddPfc() {
+export default function AddPfc(props) {
   const [pfc, setPfc] = useState({ p: 0, f: 0, c: 0 });
   const [amount, setAmount] = useState(1);
 
@@ -44,6 +45,18 @@ export default function AddPfc() {
       date: prevUserData.date
     };
     await storeData("todayUserData", userDataFormat);
+    let existingUserDataAsset = await getData("userDataAsset");
+    if (!existingUserDataAsset) {
+      existingUserDataAsset = [];
+    }
+    const formatedExistingUserDataAsset = await existingUserDataAsset.filter(
+      item => {
+        datesAreOnDiffrentDay(moment(item.date), moment());
+      }
+    );
+    await formatedExistingUserDataAsset.push(userDataFormat);
+    await storeData("userDataAsset", formatedExistingUserDataAsset);
+    await props.navigation.popToTop();
   };
 
   return (
