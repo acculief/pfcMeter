@@ -64,14 +64,28 @@ const LinksStack = createStackNavigator(
   {
     Links: LinksScreen
   },
-  config
+  {
+    headerMode: "none",
+    config
+  }
 );
 
 LinksStack.navigationOptions = {
   tabBarLabel: "分析",
   tabBarOptions: {
-    activeTintColor: "#000",
-    inactiveTintColor: "#fff"
+    activeTintColor: "#BCBEE4",
+    inactiveTintColor: "#999999",
+    style: {
+      backgroundColor: "#f5f5f5",
+      borderTopWidth: 0,
+      shadowRadius: 2,
+      shadowOpacity: 0.1,
+      shadowOffset: {
+        width: 0,
+        height: -1
+      },
+      shadowColor: "gray"
+    }
   },
   tabBarIcon: ({ focused }) => (
     <TabBarIcon focused={focused} name={"ios-analytics"} />

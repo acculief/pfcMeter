@@ -1,53 +1,67 @@
-import React from "react";
+import React, { Component } from "react";
 import { View, Text, Dimensions } from "react-native";
-import { LineChart } from "react-native-chart-kit";
+import { StackedBarChart } from "react-native-chart-kit";
+import { storeData, getData } from "../StoreFunctions";
+import moment from "moment-timezone/builds/moment-timezone-with-data";
 
-export default function LinksScreen() {
-  return (
-    <View>
-      <Text>Bezier Line Chart</Text>
-      <LineChart
-        data={{
-          labels: ["January", "February", "March", "April", "May", "June"],
-          datasets: [
-            {
-              data: [
-                Math.random() * 100,
-                Math.random() * 100,
-                Math.random() * 100,
-                Math.random() * 100,
-                Math.random() * 100,
-                Math.random() * 100
-              ]
-            }
-          ]
-        }}
-        width={Dimensions.get("window").width} // from react-native
-        height={Dimensions.get("window").height / 2}
-        yAxisLabel={"$"}
-        yAxisSuffix={"k"}
-        chartConfig={{
-          backgroundColor: "#e26a00",
-          backgroundGradientFrom: "#fb8c00",
-          backgroundGradientTo: "#ffa726",
-          decimalPlaces: 2, // optional, defaults to 2dp
-          color: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
-          labelColor: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
-          style: {
-            borderRadius: 16
-          },
-          propsForDots: {
-            r: "6",
-            strokeWidth: "2",
-            stroke: "#ffa726"
-          }
-        }}
-        bezier
+export default class LinksScreen extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      isLoading: true
+    };
+  }
+
+  componentDidMount = async () => {
+    const userDataAsset = await getData("userDataAsset");
+    let dates = await [];
+    let pfc = await [];
+    await userDataAsset.map(item => {
+      dates.push(moment(item.date).format("MM/DD"));
+      pfc.push([item.pfc.p, item.pfc.f, item.pfc.c]);
+    });
+
+    const data = await {
+      labels: dates,
+      legend: ["p", "f", "c"],
+      data: pfc,
+      barColors: ["#EBA3C6", "#9CCAEA", "#DDC98B"]
+    };
+    await this.setState({ data: data, isLoading: false });
+  };
+
+  render() {
+    if (this.state.isLoading) {
+      return <View></View>;
+    }
+    return (
+      <View
         style={{
-          marginVertical: 8,
-          borderRadius: 16
+          flex: 1,
+          alignItems: "center",
+          justifyContent: "center",
+          backgroundColor: "#f5f5f5"
         }}
-      />
-    </View>
-  );
+      >
+        <StackedBarChart
+          data={this.state.data}
+          width={Dimensions.get("window").width - 16}
+          height={220}
+          chartConfig={{
+            backgroundColor: "#1cc910",
+            backgroundGradientFrom: "#eff3ff",
+            backgroundGradientTo: "#efefef",
+            decimalPlaces: 2,
+            color: (opacity = 1) => `rgba(0, 0, 0, ${opacity})`,
+            style: {
+              borderRadius: 16
+            }
+          }}
+          style={{
+            borderRadius: 16
+          }}
+        />
+      </View>
+    );
+  }
 }
