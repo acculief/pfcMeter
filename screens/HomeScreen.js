@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { LayoutAnimation, Text, View, AsyncStorage } from "react-native";
-import { datesAreOnSameDay } from "../DateChecker";
+import { datesAreOnDiffrentDay, datesAreOnSameDay } from "../DateChecker";
 import { storeData, getData } from "../StoreFunctions";
 import PfcMeter from "../components/PfcMeter";
 import PlusButton from "../components/PlusButton";
@@ -14,9 +14,43 @@ class HomeScreen extends Component {
       isLoading: true
     };
   }
-  componentDidMount() {
+  componentDidMount = async () => {
     // AsyncStorage.clear();
-  }
+    // const data = await {
+    //   date: moment()
+    //     .add(-1, "days")
+    //     .format(),
+    //   pfc: {
+    //     c: 0,
+    //     f: 0,
+    //     p: 0
+    //   }
+    // };
+    // await storeData("todayUserData", data);
+    // const hoge = await getData("todayUserData");
+    // await console.log(data);
+    // let existingUserDataAsset = await getData("userDataAsset");
+    // if (!existingUserDataAsset) {
+    //   existingUserDataAsset = [];
+    // }
+    // await console.log(existingUserDataAsset);
+    // console.log(a);
+    // await console.log(moment(JSON.parse(a).date).format());
+    // await console.log(existingUserDataAsset);
+    // const formatedExistingUserDataAsset = await existingUserDataAsset.filter(
+    //   item => {
+    //     if (datesAreOnSameDay(moment(item.date), moment())) {
+    //       return false;
+    //     } else {
+    //       return true;
+    //     }
+    //   }
+    // );
+    // await console.log(formatedExistingUserDataAsset);
+    // await formatedExistingUserDataAsset.push(data);
+    // await console.log(formatedExistingUserDataAsset);
+    // await storeData("userDataAsset", formatedExistingUserDataAsset);
+  };
   initHome = async () => {
     const todayUserData = await getData("todayUserData");
     if (

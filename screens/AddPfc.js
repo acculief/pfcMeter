@@ -46,18 +46,22 @@ export default function AddPfc(props) {
     };
     await storeData("todayUserData", userDataFormat);
     let existingUserDataAsset = await getData("userDataAsset");
+    // await console.log(JSON.parse(existingUserDataAsset));
     if (!existingUserDataAsset) {
       existingUserDataAsset = [];
     }
     const formatedExistingUserDataAsset = await existingUserDataAsset.filter(
       item => {
-        datesAreOnDiffrentDay(moment(item.date), moment());
+        if (datesAreOnSameDay(moment(item.date), moment())) {
+          return false;
+        } else {
+          return true;
+        }
       }
     );
     await formatedExistingUserDataAsset.push(userDataFormat);
     await storeData("userDataAsset", formatedExistingUserDataAsset);
     await props.navigation.popToTop();
-    await console.log(formatedExistingUserDataAsset);
   };
 
   return (

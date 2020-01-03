@@ -10,7 +10,7 @@ const storeData = async (key, value) => {
 
 const getData = async key => {
   try {
-    const value = await AsyncStorage.getItem(key);
+    let value = await AsyncStorage.getItem(key);
     if (value !== null) {
       return JSON.parse(value);
     } else {
