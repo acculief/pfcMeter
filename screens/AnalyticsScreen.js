@@ -16,12 +16,26 @@ export default class AnalyticsScreen extends Component {
         legend: [],
         data: [],
         barColors: []
+      },
+      caloryData: {
+        labels: [],
+        datasets: [
+          {
+            data: []
+          }
+        ]
       }
     };
   }
 
   initAnalytics = async () => {
     const userDataAsset = await getData("userDataAsset");
+    if (!userDataAsset) {
+      await this.setState({
+        isLoading: false
+      });
+      return;
+    }
     let dates = await [];
     let pfc = await [];
     let kcal = await [];
@@ -57,7 +71,7 @@ export default class AnalyticsScreen extends Component {
   };
 
   chart() {
-    if (this.state.pfcData.data.length < 0) {
+    if (this.state.pfcData.data.length < 1) {
       return (
         <View>
           <Text

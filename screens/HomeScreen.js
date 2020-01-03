@@ -16,16 +16,38 @@ class HomeScreen extends Component {
   }
   componentDidMount = async () => {
     // AsyncStorage.clear();
+    // var min = await 0;
+    // var max = await 100;
     // const data = await {
     //   date: moment()
     //     .add(-1, "days")
     //     .format(),
     //   pfc: {
-    //     c: 0,
-    //     f: 0,
-    //     p: 0
+    //     c: Math.floor(Math.random() * (max + 1 - min)) + min,
+    //     f: Math.floor(Math.random() * (max + 1 - min)) + min,
+    //     p: Math.floor(Math.random() * (max + 1 - min)) + min
     //   }
     // };
+    // let asset = await [];
+    // const hoge = await Array.from({ length: 30 }, (k, v) => v);
+    // await hoge.map(v => {
+    //   let fuga = new Object({
+    //     date: moment()
+    //       .add(-1, "days")
+    //       .format(),
+    //     pfc: {
+    //       c: Math.floor(Math.random() * (max + 1 - min)) + min,
+    //       f: Math.floor(Math.random() * (max + 1 - min)) + min,
+    //       p: Math.floor(Math.random() * (max + 1 - min)) + min
+    //     }
+    //   });
+    //   fuga.date = moment()
+    //     .add(v, "days")
+    //     .format();
+    //   asset.push(fuga);
+    // });
+    // await console.log(asset);
+    // await storeData("userDataAsset", asset);
     // await storeData("todayUserData", data);
     // const hoge = await getData("todayUserData");
     // await console.log(data);
@@ -51,6 +73,7 @@ class HomeScreen extends Component {
     // await console.log(formatedExistingUserDataAsset);
     // await storeData("userDataAsset", formatedExistingUserDataAsset);
   };
+
   initHome = async () => {
     const todayUserData = await getData("todayUserData");
     if (
