@@ -62,10 +62,26 @@ HomeStack.path = "";
 
 const AnalyticsStack = createStackNavigator(
   {
-    Analytics: AnalyticsScreen
+    Analytics: {
+      screen: AnalyticsScreen,
+
+      navigationOptions: {
+        title: "月間データ",
+        headerTitleStyle: {
+          alignSelf: "center",
+          fontSize: 18,
+          fontWeight: "bold",
+          color: "#666666"
+        },
+        headerStyle: {
+          backgroundColor: "#BCBEE4",
+          borderBottomWidth: 0,
+          height: 40
+        }
+      }
+    }
   },
   {
-    headerMode: "none",
     config
   }
 );
@@ -115,10 +131,24 @@ SettingsStack.navigationOptions = {
 SettingsStack.path = "";
 
 const tabNavigator = createBottomTabNavigator({
-  HomeStack,
+  HomeStack: {
+    screen: HomeStack,
+    navigationOptions: ({ navigation }) => ({
+      tabBarVisible: disableTabBarList(navigation)
+    })
+  },
   AnalyticsStack
 });
 
 tabNavigator.path = "";
+
+const disableTabBarList = navigation => {
+  let route = navigation.state.routes[navigation.state.index].routeName;
+  if (["AddPfc"].includes(route)) {
+    return false;
+  } else if (navigation.state.index > 1) {
+    return false;
+  }
+};
 
 export default tabNavigator;

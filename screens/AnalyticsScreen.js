@@ -175,17 +175,6 @@ export default class AnalyticsScreen extends Component {
           backgroundColor: "#f5f5f5"
         }}
       >
-        <Text
-          style={{
-            alignSelf: "center",
-            fontSize: 22,
-            fontWeight: "bold",
-            color: "#666666",
-            marginVertical: 20
-          }}
-        >
-          月間データ
-        </Text>
         <NavigationEvents onDidFocus={() => this.initAnalytics()} />
         {this.chart()}
       </View>

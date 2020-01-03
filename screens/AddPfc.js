@@ -5,6 +5,7 @@ import { View, Dimensions, TouchableOpacity, Text } from "react-native";
 import SwitchSelector from "react-native-switch-selector";
 import { storeData, getData } from "../StoreFunctions";
 import moment from "moment-timezone/builds/moment-timezone-with-data";
+import Ionicons from "react-native-vector-icons/Ionicons";
 import { datesAreOnDiffrentDay, datesAreOnSameDay } from "../DateChecker";
 
 const options = [
@@ -69,10 +70,22 @@ export default function AddPfc(props) {
       style={{
         flex: 1,
         alignItems: "center",
-        backgroundColor: "#f5f5f5"
+        backgroundColor: "#f5f5f5",
+        paddingTop: "20%"
       }}
     >
-      <View style={{ flex: 2, justifyContent: "space-around", paddingTop: 20 }}>
+      <Ionicons
+        name="ios-close"
+        size={50}
+        color="#666666"
+        onPress={() => props.navigation.popToTop()}
+        style={{
+          position: "absolute",
+          top: "7%",
+          right: 30
+        }}
+      />
+      <View style={{ flex: 2, justifyContent: "space-around" }}>
         <View
           style={{
             flexDirection: "row",
@@ -132,7 +145,7 @@ export default function AddPfc(props) {
           <PlusButton onPress={() => setPfcCondition("c", "plus", amount)} />
         </View>
       </View>
-      <View style={{ flex: 0.6 }}>
+      <View style={{ flex: 0.4 }}>
         <SwitchSelector
           options={options}
           initial={1}
