@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "PFCレコード",
-    "slug": "atukuri",
+    "slug": "PfcRecord",
     "privacy": "public",
     "sdkVersion": "36.0.0",
     "platforms": ["ios", "android", "web"],
@@ -19,7 +19,7 @@
     "assetBundlePatterns": ["**/*"],
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.atukuri.pfcRecord"
+      "bundleIdentifier": "com.atukuri.pfcrecord"
     }
   }
 }
