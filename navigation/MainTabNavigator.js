@@ -5,7 +5,6 @@ import { createBottomTabNavigator } from "react-navigation-tabs";
 import TabBarIcon from "../components/TabBarIcon";
 import HomeScreen from "../screens/HomeScreen";
 import AnalyticsScreen from "../screens/AnalyticsScreen";
-import SettingsScreen from "../screens/SettingsScreen";
 import AddPfc from "../screens/AddPfc";
 
 const config = Platform.select({
@@ -58,8 +57,6 @@ HomeStack.navigationOptions = {
   )
 };
 
-HomeStack.path = "";
-
 const AnalyticsStack = createStackNavigator(
   {
     Analytics: {
@@ -108,28 +105,6 @@ AnalyticsStack.navigationOptions = {
   )
 };
 
-AnalyticsStack.path = "";
-
-const SettingsStack = createStackNavigator(
-  {
-    Settings: SettingsScreen
-  },
-  config
-);
-
-SettingsStack.navigationOptions = {
-  tabBarLabel: "設定",
-  tabBarOptions: {
-    activeTintColor: "#000",
-    inactiveTintColor: "#fff"
-  },
-  tabBarIcon: ({ focused }) => (
-    <TabBarIcon focused={focused} name={"ios-settings"} />
-  )
-};
-
-SettingsStack.path = "";
-
 const tabNavigator = createBottomTabNavigator({
   HomeStack: {
     screen: HomeStack,
@@ -139,8 +114,6 @@ const tabNavigator = createBottomTabNavigator({
   },
   AnalyticsStack
 });
-
-tabNavigator.path = "";
 
 const disableTabBarList = navigation => {
   let route = navigation.state.routes[navigation.state.index].routeName;
