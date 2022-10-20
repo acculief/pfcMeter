@@ -29,7 +29,7 @@
     "react-native-chart-kit": "^4.3.0",
     "react-native-chartjs": "^1.0.3",
     "react-native-gesture-handler": "~1.5.0",
-    "react-native-reanimated": "~1.4.0",
+    "react-native-reanimated": "~2.10.0",
     "react-native-screens": "2.0.0-alpha.12",
     "react-native-svg": "^9.13.6",
     "react-native-switch-selector": "^2.0.2",
